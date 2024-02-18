@@ -22,10 +22,13 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: ["~/assets/scss/main.scss"],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: [
+    { src: "~/plugins/persistedState.js", mode: "client" },
+    { src: "~/plugins/axiosInterceptors.js", mode: "client" },
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -37,11 +40,33 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [],
+  modules: ["@nuxtjs/axios", "@nuxtjs/i18n"],
 
+  i18n: {
+    langDir: "lang/",
+    defaultLocale: "id",
+    locales: [
+      {
+        name: "Indonesia",
+        code: "id",
+        iso: "id-ID",
+        file: "id.json",
+      },
+      {
+        name: "English",
+        code: "en",
+        iso: "en-EN",
+        file: "en.json",
+      },
+    ],
+  },
+  axios: {
+    prefix: process.env.API_URL || "http://localhost:3000",
+    Proxy: true,
+  },
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
-    customVariables: ["~/assets/variables.scss"],
+    customVariables: ["~/assets/scss/variables.scss"],
     treeShake: true,
     theme: {
       dark: false,
