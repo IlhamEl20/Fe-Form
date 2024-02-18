@@ -7,8 +7,12 @@ export default function ({ $axios, redirect, store }) {
   });
 
   $axios.onResponseError(async (err) => {
+    console.log(err.response.data.message);
     try {
-      if (err.response.status === 401) {
+      if (
+        err.response.status === 401 &&
+        err.response.data.message === "ACCESS_TOKEN_EXP"
+      ) {
         let refreshToken = store.state.auth.refreshToken;
 
         const response = await $axios.$post("/refresh-token", {
@@ -25,7 +29,7 @@ export default function ({ $axios, redirect, store }) {
         return $axios(originalRequest);
       }
     } catch (error) {
-      console.log(error);
+      return redirect("/logout");
     }
   });
 }
