@@ -1,0 +1,34 @@
+{
+  "FIELD_REQUIRED": "{field} is required",
+  "FIELD_MIN": "{field} must be at least {min} characters",
+  "FIELD_CONFIRM": "{confirm} does not match {field}",
+  "EMAIL_INVALID": "Invalid email format",
+  "EMAIL_EXIST": "Email already registered",
+
+  "QUESTION_REQUIRED": "This question is required",
+
+  "CREATE_SUCCESS": "Successfully created {title} data",
+  "UPDATE_SUCCESS": "Successfully updated {title} data",
+  "DELETE_SUCCESS": "Successfully deleted {title} data",
+  "ID_NOT_FOUND": "ID not found",
+
+  "AUTH_REQUIRED": "You must login to access this page",
+  "EMAIL_NOT_FOUND": "Email not found",
+  "WRONG_PASSWORD": "Incorrect password",
+
+  "SAVE_PROCESS": "Saving data...",
+  "SAVE_SUCCESS": "Data saved successfully",
+  "SAVE_FAILED": "Failed to save data",
+
+  "NO_DATA_YET": "No {title} data yet",
+
+  "404_NOT_FOUND": "Page not found",
+
+  "FORM_NOT_FOUND": "Form not found",
+  "INVALID_ID": "Invalid ID",
+  "REQUEST_FAILED": "Server failed to process request",
+  "SERVER_ERROR": "Server is experiencing issues",
+
+  "USER_NOT_FOUND": "User not found",
+  "PASSWORD_INVALID": "Invalid password"
+}
