@@ -113,12 +113,10 @@ export default {
           if (response.status == true) {
             this.$router.push({ name: "index___" + this.$i18n.locale });
 
-            //save token
             //save refresh token
             this.$store.commit("auth/setAccessToken", response.accessToken);
             this.$store.commit("auth/setRefreshToken", response.refreshToken);
             this.$store.commit("auth/setFullname", response.fullname);
-            alert();
           }
         }
       } catch (error) {

@@ -56,7 +56,6 @@ export default {
     return {
       isLoading: false,
       isError: false,
-
       message: "",
       form: {
         email: "",
@@ -81,16 +80,14 @@ export default {
   methods: {
     async onSubmit() {
       try {
-        if (this.$refs.form.validate()) {
-          this.isLoading = true;
-          const req = await this.$store.dispatch("auth/login", this.form);
-          if (req.data.status == true) {
-            this.$router.push({ name: "index___" + this.$i18n.locale });
-          }
-          this.isLoading = false;
+        this.isLoading = true;
+        const req = await this.$store.dispatch("auth/login", this.form);
+        if (req.data.status == true) {
+          this.$router.push({ name: "index___" + this.$i18n.locale });
         }
+        this.isLoading = false;
       } catch (error) {
-        console.log(error.response);
+        console.log(error.response.data.message);
         this.isError = true;
         this.message = error.response
           ? error.response.data.message
@@ -99,8 +96,5 @@ export default {
       }
     },
   },
-  // computed: {
-  //   ...mapState("auth", ["fullname"]),
-  // },
 };
 </script>

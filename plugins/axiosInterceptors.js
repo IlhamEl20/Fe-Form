@@ -6,15 +6,14 @@ export default function ({ $axios, redirect, store }) {
     }
   });
 
-  $axios.onResponseError(async (err) => {
-    console.log(err.response.data.message);
+  $axios.onResponseError(async (error) => {
+    console.log(error.response.data.message);
     try {
       if (
-        err.response.status === 401 &&
-        err.response.data.message === "ACCESS_TOKEN_EXP"
+        error.response.status === 401 &&
+        error.response.data.message === "ACCESS_TOKEN_EXP"
       ) {
         let refreshToken = store.state.auth.refreshToken;
-
         const response = await $axios.$post("/refresh-token", {
           refreshToken: refreshToken,
         });
@@ -25,7 +24,7 @@ export default function ({ $axios, redirect, store }) {
         let originalRequest = err.config;
         originalRequest.headers["Authorization"] =
           "Bearer " + response.accessToken;
-
+        console.log(originalRequest);
         return $axios(originalRequest);
       }
     } catch (error) {
