@@ -42,6 +42,7 @@ export const actions = {
     commit("setAccessToken", response.data.accessToken);
     commit("setRefreshToken", response.data.refreshToken);
     commit("setFullname", response.data.fullname);
+    console.log(response);
     return response;
   },
 };

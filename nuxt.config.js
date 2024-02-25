@@ -61,7 +61,7 @@ export default {
     ],
   },
   axios: {
-    prefix: process.env.API_URL || "http://localhost:3000",
+    prefix: "http://localhost:3000",
     Proxy: true,
   },
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify

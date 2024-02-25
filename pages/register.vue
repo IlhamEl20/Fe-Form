@@ -113,17 +113,14 @@ export default {
           if (response.status == true) {
             this.$router.push({ name: "index___" + this.$i18n.locale });
 
-            //save token
             //save refresh token
             this.$store.commit("auth/setAccessToken", response.accessToken);
             this.$store.commit("auth/setRefreshToken", response.refreshToken);
             this.$store.commit("auth/setFullname", response.fullname);
-            alert();
           }
         }
-      } catch (error) {
-        console.log(error.response);
-        if (error.response.data.message === "EMAIL_ALREADY_EXIST") {
+      } catch (err) {
+        if (err.response.data.message === "EMAIL_ALREADY_EXIST") {
           this.emailExist = true;
           this.$refs.form.validate();
         }

@@ -7,8 +7,13 @@ export default function ({ $axios, redirect, store }) {
   });
 
   $axios.onResponseError(async (err) => {
-    console.log(err.response.data.message);
     try {
+      if (
+        err.response.data.message === "REFRESH_TOKEN_EXP" ||
+        err.response.data.message === "INVALID_REFRESH_TOKEN"
+      ) {
+        throw new Error("LOGOUT");
+      }
       if (
         err.response.status === 401 &&
         err.response.data.message === "ACCESS_TOKEN_EXP"
@@ -18,6 +23,9 @@ export default function ({ $axios, redirect, store }) {
         const response = await $axios.$post("/refresh-token", {
           refreshToken: refreshToken,
         });
+        if (!response) {
+          throw new Error("LOGOUT");
+        }
         // simpan token baru
         store.commit("auth/setAccessToken", response.accessToken);
         store.commit("auth/setRefreshToken", response.refreshToken);
@@ -27,9 +35,14 @@ export default function ({ $axios, redirect, store }) {
           "Bearer " + response.accessToken;
 
         return $axios(originalRequest);
+      } else {
+        // console.log(err);
+        return Promise.reject(err);
       }
     } catch (error) {
-      return redirect("/logout");
+      if (error.message === "LOGOUT") {
+        return redirect("/logout");
+      }
     }
   });
 }

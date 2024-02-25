@@ -56,7 +56,6 @@ export default {
     return {
       isLoading: false,
       isError: false,
-
       message: "",
       form: {
         email: "",
@@ -87,10 +86,11 @@ export default {
           if (req.data.status == true) {
             this.$router.push({ name: "index___" + this.$i18n.locale });
           }
+
           this.isLoading = false;
         }
       } catch (error) {
-        console.log(error.response);
+        // console.log(err);
         this.isError = true;
         this.message = error.response
           ? error.response.data.message
@@ -99,8 +99,5 @@ export default {
       }
     },
   },
-  // computed: {
-  //   ...mapState("auth", ["fullname"]),
-  // },
 };
 </script>

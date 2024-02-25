@@ -1,14 +1,17 @@
 <template>
-  <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="6"> </v-col>
-  </v-row>
+  <v-container class="mt-3">
+    <v-row>
+      <v-col cols="12" class="text-right"><BtnCreateFrom /> </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
+import BtnCreateFrom from "../components/BtnCreateFrom.vue";
+
 export default {
   // layout: "auth",
   middleware: ["authenticated"],
-
   head() {
     return {
       title: "Home",
@@ -17,7 +20,7 @@ export default {
   methods: {
     async fetchForms() {
       try {
-        const response = await this.$axios.get("/forms");
+        const response = await this.$axios.$get("/forms");
         console.log(response);
       } catch (error) {
         console.log(error.response);
@@ -27,5 +30,6 @@ export default {
   mounted() {
     this.fetchForms();
   },
+  components: { BtnCreateFrom },
 };
 </script>
