@@ -4,6 +4,7 @@
       v-for="(alert, index) in alerts"
       :key="index"
       border="left"
+      v-model="alert.show"
       outlined
       :type="alert.type"
       class="v-bg-white"
@@ -11,7 +12,7 @@
       <v-row>
         <v-col class="grow"> {{ alert.message }} </v-col>
         <v-col class="shrink">
-          <v-btn icon small :color="alert.type">
+          <v-btn icon small :color="alert.type" @click="oncClose(index)">
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-col>
@@ -20,15 +21,29 @@
   </div>
 </template>
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
-    return {
-      alerts: [
-        { message: "test alert", type: "error" },
-        { message: "test alert2", type: "success" },
-      ],
-    };
+    return {};
   },
+  methods: {
+    oncClose(index) {
+      // this.alerts.splice(index, 1);
+      // this.alerts[index].show = false;
+      this.$store.commit("alerts/close", index);
+    },
+  },
+  computed: {
+    ...mapState("alerts", ["alerts"]),
+  },
+  // mounted() {
+  //   let tes = {
+  //     show: true,
+  //     type: "success",
+  //     message: "This is a success message",
+  //   };
+  //   this.$store.commit("alerts/show", tes);
+  // },
 };
 </script>
 

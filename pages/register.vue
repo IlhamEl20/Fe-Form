@@ -119,9 +119,8 @@ export default {
             this.$store.commit("auth/setFullname", response.fullname);
           }
         }
-      } catch (error) {
-        console.log(error.response);
-        if (error.response.data.message === "EMAIL_ALREADY_EXIST") {
+      } catch (err) {
+        if (err.response.data.message === "EMAIL_ALREADY_EXIST") {
           this.emailExist = true;
           this.$refs.form.validate();
         }

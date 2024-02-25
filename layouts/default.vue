@@ -3,7 +3,6 @@
     <v-main>
       <AlertRight />
       <TheHeader />
-      <br />
       <Nuxt />
     </v-main>
   </v-app>

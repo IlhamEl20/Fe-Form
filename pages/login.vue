@@ -80,14 +80,17 @@ export default {
   methods: {
     async onSubmit() {
       try {
-        this.isLoading = true;
-        const req = await this.$store.dispatch("auth/login", this.form);
-        if (req.data.status == true) {
-          this.$router.push({ name: "index___" + this.$i18n.locale });
+        if (this.$refs.form.validate()) {
+          this.isLoading = true;
+          const req = await this.$store.dispatch("auth/login", this.form);
+          if (req.data.status == true) {
+            this.$router.push({ name: "index___" + this.$i18n.locale });
+          }
+
+          this.isLoading = false;
         }
-        this.isLoading = false;
       } catch (error) {
-        console.log(error.response.data.message);
+        // console.log(err);
         this.isError = true;
         this.message = error.response
           ? error.response.data.message
