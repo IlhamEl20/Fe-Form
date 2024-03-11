@@ -16,7 +16,7 @@ export default function ({ $axios, redirect, store }) {
       }
       if (
         err.response.status === 401 &&
-        err.response.data.message === "ACCESS_TOKEN_EXP"
+        err.response.data.message === "TOKEN_EXPIRED"
       ) {
         let refreshToken = store.state.auth.refreshToken;
 
@@ -36,11 +36,20 @@ export default function ({ $axios, redirect, store }) {
 
         return $axios(originalRequest);
       } else {
-        // console.log(err);
         return Promise.reject(err);
       }
     } catch (error) {
       if (error.message === "LOGOUT") {
+        return redirect("/logout");
+      }
+      if (
+        error.response.data.message === "REFRESH_TOKEN_EXPIRED" ||
+        error.response.data.message === "REFRESH_TOKEN_INVALID" ||
+        error.response.data.message === "TOKEN_IS_NOT_VALID" ||
+        error.response.data.message === "TOKEN_FROM_OTHER_DEVICES" ||
+        error.response.data.message === "REFRESH_TOKEN_EXPIRED" ||
+        error.response.data.message === "REFRESH_TOKEN_INVALID"
+      ) {
         return redirect("/logout");
       }
     }

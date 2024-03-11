@@ -7,7 +7,7 @@
       {{ $t(message) }}
     </p>
     <v-spacer></v-spacer>
-    <v-btn text> home</v-btn>
+    <v-btn text @click="redirectToHome">Log Device</v-btn>
     <HeaderSend v-if="isShowMenu" />
 
     <v-menu offset-y>
@@ -46,6 +46,11 @@ export default {
   computed: {
     ...mapState("saves", ["process", "message"]),
     ...mapState("menus", ["isShowMenu"]),
+  },
+  methods: {
+    redirectToHome() {
+      this.$router.push("/profile/login-history");
+    },
   },
 };
 </script>

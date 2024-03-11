@@ -28,6 +28,7 @@ export default {
   plugins: [
     { src: "~/plugins/persistedState.js", mode: "client" },
     { src: "~/plugins/axiosInterceptors.js", mode: "client" },
+    { src: "~/plugins/uaParser.js", ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -40,8 +41,17 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ["@nuxtjs/axios", "@nuxtjs/i18n"],
-
+  modules: ["@nuxtjs/axios", "@nuxtjs/i18n", "@nuxtjs/dayjs"],
+  dayjs: {
+    locales: ["en"],
+    defaultLocale: "en",
+    defaultTimeZone: "Asia/Bangkok",
+    plugins: [
+      "utc", // import 'dayjs/plugin/utc'
+      "timezone", // import 'dayjs/plugin/timezone'
+      "relativeTime",
+    ],
+  },
   i18n: {
     langDir: "lang/",
     defaultLocale: "id",
@@ -61,7 +71,7 @@ export default {
     ],
   },
   axios: {
-    prefix: "http://localhost:3000",
+    prefix: process.env.API_URL || "http://localhost:3000",
     Proxy: true,
   },
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
