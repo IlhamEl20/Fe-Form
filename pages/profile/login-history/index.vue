@@ -145,15 +145,23 @@ export default {
     },
     showAlert(params) {
       if (params.message == "LOGOUT_SUCCESS") {
-        this.alert.show = true;
-        this.alert.type = "success";
-        this.alert.message = this.$t(params.message, {
-          title: params.title,
-        });
+        let tes = {
+          show: true,
+          type: "success",
+          message: this.$t(params.message, {
+            title: params.title,
+          }),
+        };
+        this.$store.commit("alerts/show", tes);
       } else if (params.message == "LOGOUT_FAILED") {
-        this.alert.show = true;
-        this.alert.type = "error";
-        this.alert.message = this.$t(params.message);
+        let tes = {
+          show: true,
+          type: "error",
+          message: this.$t(params.message, {
+            title: params.title,
+          }),
+        };
+        this.$store.commit("alerts/show", tes);
       }
     },
   },

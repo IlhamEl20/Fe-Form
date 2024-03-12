@@ -24,11 +24,13 @@
 
   "404_NOT_FOUND": "Halaman tidak di temukan",
 
-  "FORM_NOT_FOUND": "ID tidak di temukan",
+  "FORM_NOT_FOUND": "Form tidak di temukan",
   "INVALID_ID": "ID tidak valid",
   "REQUEST_FAILED": "Server gagal memproses permintaan",
   "SERVER_ERROR": "Server sedang mengalami gangguan",
 
   "USER_NOT_FOUND": "Pengguna tidak dapat ditemukan",
-  "PASSWORD_INVALID": "Password salah"
+  "PASSWORD_INVALID": "Password salah",
+
+  "INVALID_FORM_ID": "ID tidak valid"
 }

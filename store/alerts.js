@@ -1,11 +1,12 @@
 export const state = () => ({
   alerts: [
-    { message: "test alert", type: "error", show: true },
-    { message: "test alert2", type: "success", show: true },
+    // { message: "test alert", type: "error", show: true },
+    // { message: "test alert2", type: "success", show: true },
   ],
 });
 export const mutations = {
   show(state, alert) {
+    alert.show = true;
     state.alerts.push(alert);
   },
   close(state, index) {

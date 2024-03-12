@@ -4,19 +4,35 @@ export default function ({ $axios, redirect, store }) {
       const accessToken = store.state.auth.accessToken;
       config.headers["Authorization"] = "Bearer " + accessToken;
     }
+    if (config.headers.Autosave) {
+      console.log("Mulai simpan");
+      store.commit("saves/start");
+    }
+  });
+  $axios.onResponse((response) => {
+    if (response.config.headers.Autosave) {
+      console.log("selesaiu proeses ");
+      // setTimeout(() => store.commit("saves/success"), 200);
+      store.commit("saves/success");
+    }
   });
 
   $axios.onResponseError(async (err) => {
     try {
+      if (response.config.headers.Autosave) {
+        store.commit("saves/failed");
+      }
       if (
         err.response.data.message === "REFRESH_TOKEN_EXP" ||
-        err.response.data.message === "INVALID_REFRESH_TOKEN"
+        err.response.data.message === "INVALID_REFRESH_TOKEN" ||
+        err.response.data.message == "TOKEN_FROM_OTHER_DEVICES"
       ) {
         throw new Error("LOGOUT");
       }
       if (
         err.response.status === 401 &&
-        err.response.data.message === "TOKEN_EXPIRED"
+        (err.response.data.message === "TOKEN_EXPIRED" ||
+          err.response.data.message === "TOKEN_IS_NOT_VALID")
       ) {
         let refreshToken = store.state.auth.refreshToken;
 
@@ -46,9 +62,7 @@ export default function ({ $axios, redirect, store }) {
         error.response.data.message === "REFRESH_TOKEN_EXPIRED" ||
         error.response.data.message === "REFRESH_TOKEN_INVALID" ||
         error.response.data.message === "TOKEN_IS_NOT_VALID" ||
-        error.response.data.message === "TOKEN_FROM_OTHER_DEVICES" ||
-        error.response.data.message === "REFRESH_TOKEN_EXPIRED" ||
-        error.response.data.message === "REFRESH_TOKEN_INVALID"
+        error.response.data.message === "TOKEN_FROM_OTHER_DEVICES"
       ) {
         return redirect("/logout");
       }

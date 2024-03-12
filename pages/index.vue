@@ -1,5 +1,6 @@
 <template>
   <v-container class="mt-3">
+    <!-- <Toolbar /> -->
     <v-row>
       <v-col cols="12" class="text-right"><BtnCreateFrom /> </v-col>
     </v-row>
@@ -8,6 +9,7 @@
 
 <script>
 import BtnCreateFrom from "../components/BtnCreateFrom.vue";
+import Toolbar from "../components/Toolbar.vue";
 
 export default {
   // layout: "auth",
